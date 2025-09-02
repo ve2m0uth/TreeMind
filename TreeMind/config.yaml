@@ -1,0 +1,6 @@
+MODEL: "OpenAI"
+
+OPENAI_API_BASE: "https://api.openai.com/v1"   # input your base address here
+OPENAI_API_KEY: "sk-"   # input your api here
+OPENAI_API_MODEL: "gpt-4o"
+TEMPERATURE: 0.3

@@ -1,0 +1,46 @@
+[
+    {
+        "role": "system",
+        "content": "You are a helpful assistant."
+    },
+    {
+        "role": "user",
+        "content": "Suppose you are an expert in reproducing Android bugs, and your goal is to assess whether a specific step — referred to as the target step — is a valid and appropriate action toward completing the bug report, and then assign a score to that step. I will provide you with the bug report I am working to reproduce, along with the reproduction path I have followed so far and the corresponding UI information for each step in that path. After that, I will give you the target step, and your task is to determine if this action is correct and score it accordingly. If you think the target step is possibly correct, you can give it a high score(7 - 10) to encourage me. And if you think the target step is possibly wrong, you should give it a low score(0 - 4) to warn me."
+    },
+    {
+        "role": "assistant",
+        "content": "Understood. Please provide the bug report, reproduce path and target step to start the process."
+    },
+    {
+        "role": "user",
+        "content": "First you need to now how to recognize the ui info of a page. The details about the current app page include the activity name and the available UI widgets on the current page. UI infomration is presenting in group. Each group may hold a single widget or multiple widgets, such as [w1] and [w1, w2]. When a group holds multiple widgets, they usually perform related functions and can offer better insights into the purpose of that group. If the group has a identifier(e.g resource-id), the representation will be group_id:[w1, w2,...]. In addition, I'll provide the type of each group for a more comprehensive understanding of the group. Every widget is represented by its feature, which could be its text, content description, resource ID, or bounds. In our interation, we uniformly referred to representative feature of any widget, which might be its text, content description, resource ID, or boundary, as its 'feature'. Widgets also might be presented as dictionaries that include their class name as a key, such as {className: feature}, such as {NAF: featuer}. Note that className is not the feature of the widget, for example, given a widget {'NAF': '[0,1][2,2]'}, This is a NAF widget and its featture is [0,1][2,2], it representative feature is bounds becasue its text, content description, resource ID are all empty."
+    },
+    {
+        "role": "assistant",
+        "content": "Understood. Please provide the bug report, reproduce path and target step to start the process."
+    },
+    {
+        "role": "user",
+        "content": "To enable you to make a precise judgment, I will first provide the widget information of the previous page, then execute the target step on that page, and afterwards update you with the new page information along with a screenshot. By observing the differences between the previous and current UI pages, you will gain a clearer understanding of how the target step has influenced the page. Sometimes executing the target step may not change the UI, but if you believe the step is correct based on the bug report, you should still assign it a high score. The bug report is the most significant factor in your evaluation, so by combining the UI information and details provided by the bug report, you should score the target step according to the scoring rules to determine whether it follows the correct path to reproduce the bug."
+    },
+    {
+        "role": "assistant",
+        "content": "Understood. Please provide the bug report, reproduce path and target step to start the process."
+    },
+    {
+        "role": "user",
+        "content": "Your response format must be as follows: Score: 0 – 10. For example, if you intend to return a score of 5, your reply should contain exactly 'Score: 5' so that I can extract the score correctly. You must strictly follow this format in your answer."
+    },
+    {
+        "role": "assistant",
+        "content": "Understood. Please provide the bug report, details about the app screen and completed commands to start the process."
+    },
+    {
+        "role": "user",
+        "content": "Example 1:\nBug report: \"When trying to log in, pressing the 'Sign In' button does nothing.\"\nPrevious page: Shows login screen with email and password fields and a 'Sign In' button.\nTarget step: Click on 'Sign In'.\nResult: The button is clearly relevant to the bug report and is the correct next step.\nScore: 9\n\nExample 2:\nBug report: \"When opening the settings page, the app crashes.\"\nPrevious page: Main menu screen with 'Profile', 'Settings', 'Help'.\nTarget step: Click on 'Settings'.\nResult: Step directly targets the suspected crash trigger; correct path.\nScore: 10\n\nExample 3:\nBug report: \"When scrolling down in the article list, some items disappear.\"\nPrevious page: Article list screen.\nTarget step: Click on 'Back'.\nResult: This action does not move toward reproducing the scrolling bug.\nScore: 2"
+    },
+    {
+        "role": "user",
+        "content": "When scoring:\n1. Read the bug report carefully to identify the core triggering action or condition.\n2. Compare the target step with the bug report goal:\n   - Does it directly interact with the suspected element or trigger?\n   - Does it logically advance toward reproducing the bug?\n3. Check the UI change (before vs after step):\n   - Did the step bring us closer to the bug context, or was it unrelated?\n   - If no visible change, consider if the action could still be valid for the bug.\n"
+    }
+]
