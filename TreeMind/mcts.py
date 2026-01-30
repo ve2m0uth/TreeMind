@@ -15,9 +15,8 @@ class TreeNode:
         self.conversation = []
 
 
-def select_node(node, times):
+def select_node(node: TreeNode, times, tau = 1.8):
     ucb_list = []
-    tau = 1.8
     for child in node.children:
         v = child.reward
         explore = math.sqrt(2.0 * math.log(times) / float(child.visits))
@@ -35,28 +34,23 @@ def select_node(node, times):
     return choice
 
 
-def expand(node, possible_command):
+def expand(node: TreeNode, possible_command):
     for i in range(len(possible_command)):
         new_node = TreeNode(node, node.depth + 1)
-        new_node.conversation = [{"role": "user", "content": f"Successfully execute command {possible_command[i]}."}]
+        new_node.conversation = [{"role": "user", "content": f"\n\nSuccessfully execute command {possible_command[i]}."}]
         new_node.command = node.command.copy()
         new_node.command.append(possible_command[i])
         node.children.append(new_node)
-
+    # node.command = []
 
 def backtrack(node: TreeNode):
     n = len(node.children)
     reward = 0
-    for c in node.children:
-        if 5.6 <= c.reward <= 8:
-            reward += 4
-        elif 3.2 <= c.reward < 5.6:
-            reward += 1.6
-        else:
-            reward += 0.8
-    reward = reward / n
-    travel = node
+    for child in node.children:
+        reward += child.reward
+    reward = reward / max(n, 1)
+    temp = node
+    while temp is not None:
+        temp.reward += reward
+        temp = temp.parent
 
-    while travel is not None:
-        travel.reward += reward
-        travel = travel.parent

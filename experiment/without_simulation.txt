@@ -1,0 +1,93 @@
+NewPipe-7825.apk	✘
+sdbviewer-10.apk ✔	1.33.181
+ankidroid-9914.apk	✘
+ankidroid-10584.apk	✘
+Alarmio-47.apk	✔	10.57.168
+plusTimer-19.apk	✔	0.59.135
+GrowTracker-89.apk	✘
+Shuttle-456.apk	✘
+ankidroid-3370.apk	✘
+ankidroid-2765.apk		✘
+ankidroid-2564.apk	✘
+ankidroid-2681.apk	✘
+WhereYouGo-368.apk	✘
+food-tracker-55.apk	✔	3.07.603
+GrowTracker-87.apk	✘
+markor-1565.apk	✘
+Mesh-495.apk	✘
+sdbviewer-7.apk	✘
+FakeStandby-30.apk	✔	30.00.679
+revolution-irc-183.apk	✘
+ankidroid-3224.apk	✘
+pedometer-101.apk	✔	1.51.891
+andror2-7.apk	✘
+andror2-11.apk	✔	0.30.952
+andror2-23.apk	✔	3.46.904
+andror2-159.apk	✘
+andror2-162.apk	✘
+andror2-164.apk	✘
+andror2-168.apk	✘
+andror2-198.apk	✔	1.25.607
+andror2-276.apk	✘
+recdroid-1.apk	✘
+recdroid-2.apk	✔	4.27.878
+recdroid-3.apk	✘
+recdroid-5.apk	✘
+recdroid-7.apk	✔	0.51.877
+recdroid-8.apk	✘
+recdroid-9.apk	✘
+recdroid-11.apk	✘
+recdroid-12.apk ✔	12.08.540
+recdroid-13.apk	✘
+recdroid-14.apk	✘
+recdroid-15.apk	✔	4.42.123
+recdroid-17.apk	✔	1.04.676
+recdroid-21.apk	✔	3.49.067
+recdroid-23.apk	✘
+recdroid-24.apk	✔	18.46.015
+recdroid-25.apk	✘
+recdroid-26.apk	✔	3.04.743
+recdroid-27.apk	✘
+recdroid-28.apk	✘
+recdroid-29.apk	✘
+recdroid-30.apk	✘
+recdroid-31.apk	✘
+recdroid-33.apk	✘
+recdroid-34.apk	✘
+recdroid-35.apk	✘
+recdroid-38.apk	✔	3.04.932
+recdroid-39.apk	✘
+recdroid-42.apk	✘
+recdroid-45.apk	✘
+recdroid-49.apk	✘
+recdroid-53.apk	✘
+recdroid-55.apk	✘
+recdroid-56.apk	✘
+recdroid-57.apk	✘
+recdroid-58.apk	✔	1.52.262
+recdroid-60.apk	✘
+recdroid-61.apk	✘
+recdroid-62.apk	✘
+recdroid-64.apk	✔	1.30.945
+saner2022-2.apk	✔	11.32.946
+saner2022-8.apk	✘
+saner2022-11.apk	✔	0.32.719
+saner2022-18.apk	✘
+saner2022-23.apk	✘
+saner2022-129.apk	✘
+saner2022-271.apk	✘
+saner2022-1089.apk	✘
+saner2022-1096.apk	✘
+saner2022-1133.apk	✔	9.49.231
+saner2022-1160.apk	✘
+saner2022-1207.apk	✘
+saner2022-1215.apk	✔	2.38.783
+saner2022-1227.apk	✘
+saner2022-1299.apk	✘
+saner2022-1430.apk	✘
+saner2022-1447.apk	✘
+saner2022-1568.apk	✘
+saner2022-1645.apk	✘
+yakusu-1.apk	✘
+yakusu-35.apk	✔	0.35.624
+yakusu-98.apk	✘

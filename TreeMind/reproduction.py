@@ -8,13 +8,14 @@ def reproduce_bug(app_name, report_file_path, device_port='emulator-5554'):
     work_dir, ss_dir = make_dir('./', app_name)
 
     device = u2.connect(device_port)
+    device.set_orientation("natural")
     clear_logcat(device_port)
     bug_report = read_bug_report(report_file_path)
-    print(bug_report)
-    back_command = get_back_command(device)
+    print(f"Bug Report:{bug_report}")
+    restart_command = get_restart_command(device)
 
     root = TreeNode(None, 1)
-    root.conversation = [{"role": "user", "content": f"app name: {app_name}.\n{bug_report}\n"}]
+    root.conversation = [{"role": "user", "content": f"app name: {app_name}\nBug Report:{bug_report}\n"}]
     root.reward = 1
     node = root
     step = 1
@@ -23,17 +24,19 @@ def reproduce_bug(app_name, report_file_path, device_port='emulator-5554'):
 
     while not crash:
         explore_conversation = node.conversation.copy()
-        device.set_orientation("natural")
         ui_info = {}
 
         while len(node.children) != 0:
             best_node = select_node(node, step)
             explore_conversation.extend(best_node.conversation)
-            execute_command(device, best_node.command[-1])
             node = best_node
             node.visits += 1
+        propagation(device, node.command)
 
         ui_info["widget_info"], ui_info["sequential_info"], ui_info["element"] = get_widget_info(device)
+        print("===============================")
+        print(ui_info["sequential_info"])
+        print("===============================")
         node.conversation.append({"role": "user", "content": ui_info["sequential_info"]})
         explore_conversation.append({"role": "user", "content": ui_info["sequential_info"]})
         timestamp = int(time.time())
@@ -45,63 +48,32 @@ def reproduce_bug(app_name, report_file_path, device_port='emulator-5554'):
             continue
         expand(node, possible_command)
         for child in node.children:
-            execute_command(device, child.command[-1])
+            execute_commands(device, child.command[-1])
             simulation(device, agent2, child, ui_info, explore_conversation)
             crash = detect_crashes(device_port, device)
             if crash:
                 step_record = child.command
-                print("****Bug Found Successfully!****")
+                print(f"****Bug Found Successfully!****\n\nWith steps {step}")
                 break
-            back_to_previous(device, node.command, back_command)
-        backtrack(node)
-        back_to_previous(device, root.command, back_command)
-        node = root
-        step += 1
+            restart_device(restart_command)
+            propagation(device, child.command[0:-1])
+        if not crash:
+            backtrack(node)
+            restart_device(restart_command)
+            propagation(device, root.command)
+            node = root
+            step += 1
 
     record_path = os.path.join(work_dir, 'record.txt')
     with open(record_path, 'w', encoding='utf-8') as f:
         f.write(str(step_record))
+        print(f"Successfully reproduced the bug with following steps:\n {step_record}")
 
 
 def make_dir(root_path, app_name):
     work_dir = create_dir(create_dir(root_path, "apps"), app_name)
     ss_dir = create_dir(work_dir, "screenshots")
     return work_dir, ss_dir
-
-
-def detect_crashes(device_port, device):
-    crash = False
-    logcat = get_logcat(device_port)
-
-    if logcat and 'FATAL' in logcat:
-        print('Found fatal')
-        crash = True
-    if re.match(r".*?getText\(\) = Unfortunately, .*? has stopped.*", logcat):
-        print('Found App Stop')
-        crash = True
-    if re.match(r".*?UiObject: getText\(\) = .*? isn't responding\..*?", logcat):
-        print('Found App isn\'t Responding')
-        crash = True
-
-    if not crash:
-        time.sleep(1)
-        package_name = device.app_current()['package']
-        crash = check_error_keywords(get_current_hierarchy(device), package_name) \
-                or 'crashreport' in device.app_current()['activity'].lower()
-    return crash
-
-
-def get_logcat(device_port):
-    adb_command = ['adb', '-s', f'{device_port}', 'logcat', '-d', '*:E']
-    try:
-        result = subprocess.run(adb_command, capture_output=True, text=True, encoding='utf-8',
-                                errors='ignore', timeout=5)
-    except subprocess.TimeoutExpired:
-        print("Get logcat did not complete within the timeout period.")
-        return ''
-    if result.returncode != 0:
-        raise Exception("adb logcat failed, make sure your device is connected and adb is installed")
-    return result.stdout
 
 
 if __name__ == "__main__":

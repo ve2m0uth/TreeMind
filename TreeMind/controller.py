@@ -204,7 +204,7 @@ def get_sequential_info(info, activity, orientation, toast):
         return f"\n*Current Screen Information:  #Current Activity: {activity}. # UI Information:{info_string}.Toast message on the page: {toast}"
     else:
         return f"\n*Current Screen Information:  #Current Activity: {activity}.  # UI Information:{info_string}."
-    # return f"\n*Current Screen Information:  #Current Activity: {activity}.  # UI Information:{info_string}."
+
 
 
 def get_screen_information(device, attribute_to_element_map, package_name):
@@ -212,7 +212,6 @@ def get_screen_information(device, attribute_to_element_map, package_name):
         toast = device.toast.get_message(2, 5, None)
     except:
         toast = None
-    # toast = device.last_toast
 
     tree = get_current_hierarchy(device)
     root = tree.getroot()
@@ -223,9 +222,6 @@ def get_screen_information(device, attribute_to_element_map, package_name):
     activity = device.app_current()['activity']
     get_operable_elements(root, package_name, parent_map, info, attribute_to_element_map)
 
-    # print(attribute_to_element_map)
-    # return info, get_sequential_info(info, activity, device.orientation, toast)
-    # return attribute_to_element_map
     return info, get_sequential_info(info, activity, device.orientation, toast), attribute_to_element_map
 
 
@@ -238,37 +234,38 @@ def get_screenshot(device, screenshot_path):
         return False
 
 
-def execute_command(device, command):
+def execute_single_command(device, command):
     package_name = device.app_current()['package']
     command_map = {
         'complete': lambda: None,
         'restart': lambda: restart(device, package_name),
         'scroll': lambda: scroll(device, command.get('index', 0),
-                                 command.get('to_direction', command.get('target_direction', None))),
-        'orientation': lambda: orientation(device, command),
-        'rotate': lambda: orientation(device, command),
+                                command.get('to_direction', command.get('target_direction', None))),
+        'orientation': lambda: orientation(command),
+        'rotate': lambda: orientation(command),
         'back': lambda: back(device),
         'swipe': lambda: swipe(device, command.get('to_direction', None)),
         'multiple_selection': lambda: multiple_selection(device, command['features']),
         'Navigate up': lambda: back(device),
     }
     try:
-        if command['action'] in command_map:
-            command_map[command['action']]()
+        action = command.get('action', '')
+        action = action.strip().lower()
+        if action in command_map:
+            command_map[action]()
             return True
         elif command.get('feature', None) is None:
             print(f"The program cannot recognized this actions {command}")
             return False
         else:
-            action = command['action']
-            rep_attr = command['feature']
+            rep_attr = command.get('feature', None)
             index = command.get('index', 0)
 
             if action == 'set_text':
                 set_text(device, rep_attr, command.get('input_text', "qwer1234@"), index)
                 return True
             elif action == 'click':
-                if command["coordinate"] is None:
+                if command.get('coordinate', None) is None:
                     ui_object = locate_ui_object(device, rep_attr, index)
                     if ui_object:
                         getattr(ui_object, action)()
@@ -276,8 +273,8 @@ def execute_command(device, command):
                 else:
                     click(device, command["coordinate"])
                     return True
-            elif action == 'long click':
-                if command["coordinate"] is None:
+            elif action == 'long_click':
+                if command.get('coordinate', None) is None:
                     ui_object = locate_ui_object(device, rep_attr, index)
                     if ui_object:
                         getattr(ui_object, action)()
@@ -286,6 +283,15 @@ def execute_command(device, command):
                     return True
     except Exception as e:
         return False
+
+
+def execute_commands(device, command_list):
+    for command in command_list:
+        if execute_single_command(device, command):
+            continue
+        else:
+            print(f"The program cannot recognized this actions {command}")
+            return False
 
 
 def locate_ui_object(device, rep_attr, type=None, index=0):
@@ -317,15 +323,12 @@ def get_bounds_dict(bounds):
     if not match:
         return None
     coordinates = [int(coord) for pair in bounds.split('][') for coord in pair.strip('[]').split(',')]
-
     if len(coordinates) != 4:
         raise ValueError(f"Expected 4 coordinates, but got {len(coordinates)}")
-
     bounds_dict = {'left': coordinates[0],
                    'top': coordinates[1],
                    'right': coordinates[2],
                    'bottom': coordinates[3]}
-
     return bounds_dict
 
 
@@ -337,6 +340,9 @@ def restart(device, package_name):
 
 
 def scroll(device, index=0, direction=None):
+    scrollables = device(scrollable=True)
+    if not scrollables.exists:
+            return 
     if direction == 'up' or direction == 'top' or direction == None:
         device(scrollable=True)[index].fling.vert.toBeginning()
     elif direction == 'down' or direction == 'bottom':
@@ -347,29 +353,97 @@ def scroll(device, index=0, direction=None):
         device.swipe_ext("down", scale=0.9)
     time.sleep(1)
 
+def get_current_rotation():
+    result = subprocess.check_output(
+        "adb shell settings get system user_rotation",
+        shell=True
+    ).decode().strip()
 
-def orientation(device, command):
-    direction = command.get('to_direction', None)
-    if direction == None:
-        direction = command.get('direction', None)
-    if direction == None:
-        direction = command.get('orientation', None)
+    try:
+        return int(result)
+    except ValueError:
+        return 0
+
+
+def orientation(command):
+    direction = (
+        command.get('to_direction')
+        or command.get('direction')
+        or command.get('orientation')
+    )
+
+    subprocess.run(
+        "adb shell settings put system accelerometer_rotation 0",
+        shell=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
+
+    current_rotation = get_current_rotation()
 
     if direction == 'portrait':
-        device.set_orientation('natural')
-    elif direction == 'landscape':
-        device.set_orientation('left')
-    elif direction in ['left', 'right', 'natural', 'upsidedown']:
-        device.set_orientation(direction)
-    else:
-        options = ['left', 'right', 'natural', 'upsidedown']
-        current_orientation = device.orientation
-        random_option = current_orientation
-        while random_option == current_orientation:
-            random_option = random.choice(options)
+        subprocess.run(
+            "adb shell settings put system user_rotation 0",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
 
-        device.set_orientation(random_option)
+    elif direction == 'landscape':
+        subprocess.run(
+            "adb shell settings put system user_rotation 1",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+    elif direction == 'natural':
+        subprocess.run(
+            "adb shell settings put system user_rotation 0",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+    elif direction == 'upsidedown':
+        subprocess.run(
+            "adb shell settings put system user_rotation 2",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+    elif direction == 'rotate_right' or direction == 'right':
+        new_rotation = (current_rotation + 1) % 4
+        subprocess.run(
+            f"adb shell settings put system user_rotation {new_rotation}",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+    elif direction == 'rotate_left' or direction == 'left':
+        new_rotation = (current_rotation + 3) % 4
+        subprocess.run(
+            f"adb shell settings put system user_rotation {new_rotation}",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+    else:
+        options = [0, 1, 2, 3]
+        if current_rotation in options:
+            options.remove(current_rotation)
+        new_rotation = random.choice(options)
+
+        subprocess.run(
+            f"adb shell settings put system user_rotation {new_rotation}",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
     time.sleep(1)
+
 
 
 def swipe(device, direction=None):
@@ -392,13 +466,13 @@ def multiple_selection(device, items):
     element = map.get(items[0], None)
     command = {'feature': items[0], 'action': 'long_click'}
     process_coordinate(device, command, map)
-    execute_command(device, {'feature': items[0], 'action': 'long_click'})
+    execute_single_command(device, {'feature': items[0], 'action': 'long_click'})
     if len(items) > 1:
         for item in items[1:]:
             command = {'feature': item, 'action': 'click'}
             element = map.get(item, None)
             process_coordinate(device, command, map)
-            execute_command(device, command)
+            execute_single_command(device, command)
     time.sleep(1)
 
 
@@ -467,34 +541,25 @@ def get_widget_info(device):
     package_name = device.app_current()['package']
     attribute_to_element_map = {}
     widget_info, info, attribute_to_element_map = get_screen_information(device, attribute_to_element_map, package_name)
-    # ui_info["widget_info"], ui_info["sequential_info"], ui_info["element"] =
-    # widget_info, info, attribute_to_element_map
     return widget_info, info, attribute_to_element_map
-
-
-def get_element(attribute_to_element_map, command):
-    if isinstance(command['feature'], dict):
-        return None, f"command['feature'] is not the right format, please provide the feature only "
-
-    element_list = attribute_to_element_map.get(command['feature'], [])
-    if element_list != []:
-        index = command.get('index', 0)
-        if index >= len(element_list):
-            return None, f"the idex, {index}, is out of range, {len(element_list)}"
-        else:
-            element = element_list[index]
-    else:
-        element = None
-    return element, None
 
 
 def process_coordinate(device, command, ui_info):
     command['coordinate'] = None
-    element, warning = get_element(ui_info["element"], command)
-
-    rep_attr = command['feature']
-    action = command['action']
+    element = get_element(ui_info["element"], command)
+    rep_attr = command.get('feature')
+    action = command.get('action')
     index = command.get('index', 0)
+
+    bounds_pattern = re.compile(r'^\[\d+,\d+\]\[\d+,\d+\]$')
+    if bounds_pattern.match(rep_attr):
+        x1, y1, x2, y2 = map(
+        int,
+        rep_attr.replace('[', '').replace(']', ',').split(',')[:-1])
+        centerX = (x1 + x2) // 2
+        centerY = (y1 + y2) // 2
+        command['coordinate'] = [centerX, centerY]
+        return True
 
     if element is None:
         if 'click' in action and index == 0:
@@ -502,11 +567,6 @@ def process_coordinate(device, command, ui_info):
             if coor:
                 command['coordinate'] = coor
                 return True
-        # ui_object.click()
-        # ui_object = locate_ui_object(device, rep_attr, index)
-        # if ui_object:
-        #     getattr(ui_object, action)()
-        #     return True
     else:
         coor = get_center_if_coordinate(element.attrib.get('bounds', ''))
         if coor:

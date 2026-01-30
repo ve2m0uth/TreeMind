@@ -1,0 +1,9 @@
+colorama==0.4.6
+opencv-python==4.10.0.84
+openai==1.37.1
+pyshine==0.0.9
+PyYAML==6.0.1
+requests==2.32.3
+uiautomator2==3.2.2
+adbutils==2.7.2
+numpy==1.26.4
