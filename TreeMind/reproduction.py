@@ -55,11 +55,11 @@ def reproduce_bug(app_name, report_file_path, device_port='emulator-5554'):
                 step_record = child.command
                 print(f"****Bug Found Successfully!****\n\nWith steps {step}")
                 break
-            restart_device(restart_command)
+            restart_app(device, restart_command)
             propagation(device, child.command[0:-1])
         if not crash:
             backtrack(node)
-            restart_device(restart_command)
+            restart_app(device,restart_command)
             propagation(device, root.command)
             node = root
             step += 1

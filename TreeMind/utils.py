@@ -81,16 +81,33 @@ def get_restart_command(device):
         print("****Failed to Find activity Name****")
         exit(0)
     adb_command = 'adb shell am force-stop ' + package_name
-    execute_adb(adb_command)
-    backCommand['stop_command'] = adb_command
     adb_command = "adb shell am start " + latter
     execute_adb(adb_command)
+    execute_adb(adb_command)
+    backCommand['stop_command'] = adb_command
     backCommand['start_command'] = adb_command
     return backCommand
 
 
-def restart_device(restartCommand):
+def restart_app(device, restartCommand):
     execute_adb(restartCommand['stop_command'])
+    current_app = device.app_current()
+    package_name = current_app.get('package')
+    if package_name and len(package_name) > 0:
+        adb_command = f"adb shell dumpsys package {package_name}"
+        res = os.popen(adb_command).read()
+        pattern = re.compile(r'android.intent.action.MAIN:\s*(\S+\s+\S+/\S+.+?filter\s+\S+)')
+        match = pattern.search(res)
+        if match:
+            latter = match.group(1)
+            for i in range(len(latter)):
+                if latter[i] == ' ':
+                    latter = latter[i + 1:]
+                    break
+            stop_command = f'adb shell am force-stop {package_name}'
+            execute_adb(stop_command)
+        else:
+            execute_adb(f'adb shell am force-stop {package_name}')
     execute_adb(restartCommand['start_command'])
     time.sleep(2.5)
 

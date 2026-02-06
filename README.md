@@ -51,19 +51,23 @@ Display help:
 python reproduction.py -h
 ```
 
-#### 5. Example 
+#### Example 
 
 ```
 python reproduction.py myapp reports/bug1.txt
 ```
 
-This command runs **TreeMind** on the `myapp` app using the bug report in `reports/bug1.txt` and the default emulator.Remember to install the target app which you need to reproduce in the emulator before run TreeMind.
+This command runs **TreeMind** on the `myapp` app using the bug report in `reports/bug1.txt` and the default emulator 5554. Before running TreeMind, make sure that the target application is installed on the emulator and opened.
 
 #### Tips 
 
 - Ensure your emulator or device is running and accessible via the specified port .
 - The output actions will be automatically executed on the device using **uiautomator2** .
 - For better reproducibility, make sure the app is in the expected initial state  before running TreeMind.
+
+### Demo Video
+
+To demonstrate the practical usage of TreeMind in real-world scenarios, we provide an anonymous demonstration video (`./experiment/demo.mp4`) that showcases the crash reproduction process performed by TreeMind.
 
 ### Comparison with Baseline 
 
@@ -174,4 +178,3 @@ This command runs **TreeMind** on the `myapp` app using the bug report in `repor
     <tr><td>yakusu-98</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr>
   </tbody>
 </table>
-
