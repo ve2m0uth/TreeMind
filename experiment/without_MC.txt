@@ -1,0 +1,95 @@
+Aegis-500.apk	✘
+andOTP-569.apk	✘
+andror2-11.apk	✘
+andror2-11.apk	✔	0.12.188
+andror2-159.apk	✘
+andror2-162.apk	✘
+andror2-164.apk	✘
+andror2-168.apk	✘
+andror2-198.apk	✘
+andror2-23.apk	✔	0.51.139
+andror2-276.apk	✘
+andror2-7.apk	✔	2.32.950
+anglers-9.apk	✘
+ankidroid-10584.apk	✘
+ankidroid-2564.apk	✘
+ankidroid-2681.apk	✘
+ankidroid-2765.apk	✘
+ankidroid-3224.apk	✘
+ankidroid-3370.apk	✔	2.47.886
+ankidroid-9914.apk	✔	3.22.295
+AntennaPod-3245.apk	✔	3.20.181
+AnyMemo-422.apk	✔	1.35.780
+AnyMemo-440.apk	✔	5.12.744
+AsciiCam-17.apk	✔	0.26.453
+banderlabs-23.apk	✔	3.06.056
+Birthdroid-13.apk	✔	2.51.016
+bounty-39073.apk	✘
+calendula-134.apk	✘
+collect-1402.apk	✘
+collect-2533.apk	✘
+collect-2993.apk	✔	3.41.419
+collect-3529.apk	✔	0.28.834
+FastAdapter-113.apk	✘
+FastAdapter-394.apk	✔	2.24.927
+fastnfitness-142.apk	✔	2.11.431
+Fermi-321.apk	✘
+Field-Book-146.apk	✘
+FlashCards-13.apk	✔	1.19.080
+food-tracker-55.apk	✘
+gnucash-664.apk	✘
+GrowTracker-87.apk	✘
+GrowTracker-89.apk	✘
+IMSI-816.apk	✔	0.18.571
+iNaturalistAndroid-722.apk	✘
+ladybug-129.apk	✘
+ladybug-225.apk	✔	1.01.056
+LibreNews-23.apk	✔	2.34.910
+LibreNews-27.apk	✔	1.12.796
+lrkFM-44.apk	✘
+markor-1565.apk	✘
+markor-194.apk	✘
+materialistic-1067.apk	✘
+MBTACA-12.apk	✔	1.23.769
+Memento-169.apk	✘
+Mesh-495.apk	✘
+NewPipe-7825.apk	✘
+noad-1.apk	✔	0.15.414
+o365-attack-toolkit-26.apk	✘
+obd-22.apk	✘
+Open-Shell-Menu-2024.apk	✘
+pedometer-101.apk	✘
+plusTimer-19.apk	✔	0.15.274
+qksms-482.apk	✘
+qksms-585.apk	✘
+recdroid-13.apk	✔	2.22.005
+recdroid-17.apk	✔	0.58.775
+recdroid-23.apk	✘
+recdroid-30.apk	✔	1.42.175
+recdroid-49.apk	✘
+recdroid-5.apk	✘
+recdroid-58.apk	✔	1.54.212
+recdroid-64.apk	✔	2.10.296
+recdroid-7.apk	✔	1.33.628
+record-1.apk	✘
+revolution-irc-183.apk	✘
+saner2022-1207.apk	✘
+saner2022-23.apk	✘
+sdbviewer-10.apk	✔	1.46.071
+sdbviewer-7.apk	✘
+Shuttle-456.apk	✘
+SimpleJoinMessage-3.apk	✔	3.25.971
+TagMo-12.apk	✘
+thunderbird-2612.apk	✘
+thunderbird-3255.apk	✔	2.35.280
+Trainer-7.apk	✘
+trickytripper-43.apk	✘
+WhereYouGo-368.apk	✔	1.56.106
+yakusu-1.apk	✘
+yakusu-35.apk	✘
+yakusu-98.apk	✘
+
+
+Alarmio-47.apk	✘
+FakeStandby-30.apk	✘
+recdroid-1.apk	✘

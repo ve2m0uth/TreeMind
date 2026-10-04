@@ -8,6 +8,7 @@ import json
 import re
 import time
 
+flag = 0
 
 def clear_logcat(device_ip):
     adb_command = ['adb', '-s', device_ip, 'logcat', '-c']
@@ -62,13 +63,19 @@ def load_prompts(file_path):
 
 
 def get_restart_command(device):
-    backCommand = {}
     package_name = device.app_current()['package']
     if len(package_name) == 0:
-        print('****Failed to find package name****')
-        exit(0)
+        raise RuntimeError("Failed to find package name")
     adb_command = f"adb shell dumpsys package {package_name}"
-    res = os.popen(adb_command).read()
+    result = subprocess.run(
+        adb_command,
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    res = result.stdout
+    if result.returncode != 0:
+        raise RuntimeError(f"Failed to execute dumpsys: {result.stderr}")
     pattern = re.compile(r'android.intent.action.MAIN:\s*(\S+\s+\S+/\S+.+?filter\s+\S+)')
     match = pattern.search(res)
     if match:
@@ -79,42 +86,27 @@ def get_restart_command(device):
                 break
     else:
         print("****Failed to Find activity Name****")
-        exit(0)
-    adb_command = 'adb shell am force-stop ' + package_name
-    adb_command = "adb shell am start " + latter
-    execute_adb(adb_command)
-    execute_adb(adb_command)
-    backCommand['stop_command'] = adb_command
-    backCommand['start_command'] = adb_command
-    return backCommand
+        raise RuntimeError("Failed to find activity name")
+
+    return {
+        'stop_command':
+            f'adb shell am force-stop {package_name}',
+        'start_command':
+            f'adb shell am start {latter}'
+    }
 
 
-def restart_app(device, restartCommand):
+def restart_app(restartCommand):
     execute_adb(restartCommand['stop_command'])
-    current_app = device.app_current()
-    package_name = current_app.get('package')
-    if package_name and len(package_name) > 0:
-        adb_command = f"adb shell dumpsys package {package_name}"
-        res = os.popen(adb_command).read()
-        pattern = re.compile(r'android.intent.action.MAIN:\s*(\S+\s+\S+/\S+.+?filter\s+\S+)')
-        match = pattern.search(res)
-        if match:
-            latter = match.group(1)
-            for i in range(len(latter)):
-                if latter[i] == ' ':
-                    latter = latter[i + 1:]
-                    break
-            stop_command = f'adb shell am force-stop {package_name}'
-            execute_adb(stop_command)
-        else:
-            execute_adb(f'adb shell am force-stop {package_name}')
+    time.sleep(2)
     execute_adb(restartCommand['start_command'])
-    time.sleep(2.5)
+    time.sleep(2)
 
 def propagation(device, command_list):
     device.set_orientation("natural")
     for command in command_list:
-        execute_commands(device, command)
+        if not execute_commands(device, command):
+            return False
     return True
 
 
@@ -123,7 +115,7 @@ def execute_adb(adb_command):
     if result.returncode != 0:
         print(f"Command execution failed: {adb_command}")
         print(result.stderr)
-        exit(0)
+        raise RuntimeError(f"Command execution failed: {adb_command}\n{result.stderr}")
 
 
 def load_config(config_path = "./config.yaml"):

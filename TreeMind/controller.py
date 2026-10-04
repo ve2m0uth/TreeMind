@@ -235,7 +235,15 @@ def get_screenshot(device, screenshot_path):
 
 
 def execute_single_command(device, command):
-    package_name = device.app_current()['package']
+    if not isinstance(command, dict):
+        print(f"Invalid command type: {type(command).__name__}")
+        return False
+
+    try:
+        package_name = device.app_current()['package']
+    except Exception as e:
+        print(f"Unable to read current app before executing {command}: {e}")
+        return False
     command_map = {
         'complete': lambda: None,
         'restart': lambda: restart(device, package_name),
@@ -246,14 +254,13 @@ def execute_single_command(device, command):
         'back': lambda: back(device),
         'swipe': lambda: swipe(device, command.get('to_direction', None)),
         'multiple_selection': lambda: multiple_selection(device, command['features']),
-        'Navigate up': lambda: back(device),
+        'navigate up': lambda: back(device),
     }
     try:
         action = command.get('action', '')
         action = action.strip().lower()
         if action in command_map:
-            command_map[action]()
-            return True
+            return command_map[action]() is not False
         elif command.get('feature', None) is None:
             print(f"The program cannot recognized this actions {command}")
             return False
@@ -262,8 +269,9 @@ def execute_single_command(device, command):
             index = command.get('index', 0)
 
             if action == 'set_text':
-                set_text(device, rep_attr, command.get('input_text', "qwer1234@"), index)
-                return True
+                return set_text(
+                    device, rep_attr, command.get('input_text', "qwer1234@"), index
+                ) is True
             elif action == 'click':
                 if command.get('coordinate', None) is None:
                     ui_object = locate_ui_object(device, rep_attr, index)
@@ -278,20 +286,27 @@ def execute_single_command(device, command):
                     ui_object = locate_ui_object(device, rep_attr, index)
                     if ui_object:
                         getattr(ui_object, action)()
+                        return True
                 else:
                     long_click(device, command["coordinate"])
                     return True
     except Exception as e:
+        print(f"Command execution error for {command}: {e}")
         return False
+    return False
 
 
 def execute_commands(device, command_list):
+    if not isinstance(command_list, list):
+        print(f"Invalid command sequence type: {type(command_list).__name__}")
+        return False
     for command in command_list:
         if execute_single_command(device, command):
             continue
         else:
             print(f"The program cannot recognized this actions {command}")
             return False
+    return True
 
 
 def locate_ui_object(device, rep_attr, type=None, index=0):
@@ -337,12 +352,13 @@ def restart(device, package_name):
     time.sleep(2)
     device.app_start(package_name)
     time.sleep(2)
+    return True
 
 
 def scroll(device, index=0, direction=None):
     scrollables = device(scrollable=True)
     if not scrollables.exists:
-            return 
+        return False
     if direction == 'up' or direction == 'top' or direction == None:
         device(scrollable=True)[index].fling.vert.toBeginning()
     elif direction == 'down' or direction == 'bottom':
@@ -352,6 +368,7 @@ def scroll(device, index=0, direction=None):
     else:
         device.swipe_ext("down", scale=0.9)
     time.sleep(1)
+    return True
 
 def get_current_rotation():
     result = subprocess.check_output(
@@ -443,6 +460,7 @@ def orientation(command):
             stderr=subprocess.DEVNULL
         )
     time.sleep(1)
+    return True
 
 
 
@@ -457,28 +475,29 @@ def swipe(device, direction=None):
 
         device.swipe_ext("left", scale=0.9)
     time.sleep(1)
+    return True
 
 
 def multiple_selection(device, items):
     widget_info, sequential_info, map = get_widget_info(device)
     if len(items) == 0:
         print("No items to select.")
-    element = map.get(items[0], None)
-    command = {'feature': items[0], 'action': 'long_click'}
-    process_coordinate(device, command, map)
-    execute_single_command(device, {'feature': items[0], 'action': 'long_click'})
+        return False
+    if not execute_single_command(device, {'feature': items[0], 'action': 'long_click'}):
+        return False
     if len(items) > 1:
         for item in items[1:]:
             command = {'feature': item, 'action': 'click'}
-            element = map.get(item, None)
-            process_coordinate(device, command, map)
-            execute_single_command(device, command)
+            if not execute_single_command(device, command):
+                return False
     time.sleep(1)
+    return True
 
 
 def back(device):
     device.press('back')
     time.sleep(1)
+    return True
 
 
 def click(device, coor):

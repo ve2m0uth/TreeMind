@@ -1,93 +1,95 @@
-NewPipe-7825.apk	✘
-sdbviewer-10.apk	✔	4.09.532
-ankidroid-9914.apk	✘
-ankidroid-10584.apk	✘
-Alarmio-47.apk	✔	3.45.847
-plusTimer-19.apk	✔	5.25.546
-GrowTracker-89.apk	✘
-Shuttle-456.apk	✔	7.19.420
-ankidroid-3370.apk	✘
-ankidroid-2765.apk		✘
-ankidroid-2564.apk	✘
-ankidroid-2681.apk	✔	20.00.213
-WhereYouGo-368.apk	✔	16.14.772
-food-tracker-55.apk	✔	2.15.784
-GrowTracker-87.apk	✘
-markor-1565.apk	✘
-Mesh-495.apk	✘
-sdbviewer-7.apk	✘
-FakeStandby-30.apk	✔	1.25.746
-revolution-irc-183.apk	✘
-ankidroid-3224.apk	✘
-pedometer-101.apk	✔	30.00.929
-andror2-7.apk	✘
+Aegis-500.apk	✘
+andOTP-569.apk	✘
 andror2-11.apk	✘
-andror2-23.apk	✔	5.12.262
 andror2-159.apk	✘
 andror2-162.apk	✘
 andror2-164.apk	✘
 andror2-168.apk	✘
 andror2-198.apk	✘
+andror2-23.apk	✔	5.12.262
 andror2-276.apk	✘
-recdroid-1.apk	✘
-recdroid-2.apk	✔	17.36.922
-recdroid-3.apk	✘
-recdroid-5.apk	✘
-recdroid-7.apk	✔	2.38.631
-recdroid-8.apk	✘
-recdroid-9.apk	✘
-recdroid-11.apk	✔	17.15.007
-recdroid-12.apk	✔	7.11.690
+andror2-7.apk	✘
+anglers-log-9.apk	✔	16.12.029
+ankidroid-10584.apk	✘
+ankidroid-2564.apk	✘
+ankidroid-2681.apk	✔	20.00.213
+ankidroid-2765.apk	✘
+ankidroid-3224.apk	✘
+ankidroid-3370.apk	✘
+ankidroid-9914.apk	✘
+AntennaPod-3245.apk	✘
+AnyMemo-422.apk	✘
+AnyMemo-440.apk	✘
+AsciiCam-17.apk	✘
+ATimeTracker-10.apk	✘
+banderlabs-23.apk	✘
+Birthdroid-13.apk	✘
+bounty-39073.apk	✔	12.09.116
+calendula-134.apk	✘
+collect-1402.apk	✔	20.39.738
+collect-2533.apk	✘
+collect-2993.apk	✔	5.17.543
+collect-3529.apk	✔	4.38.064
+FastAdapter-113.apk	✘
+FastAdapter-394.apk	✔	7.11.690
+fastnfitness-142.apk	✔	9.56.191
+Fermi-321.apk	✔	17.15.007
+Field-Book-146.apk	✘
+FlashCards-13.apk	✘
+food-tracker-55.apk	✔	2.15.784
+gnucash-664.apk	✘
+GrowTracker-87.apk	✘
+GrowTracker-89.apk	✘
+IMSI-816.apk	✘
+iNaturalistAndroid-722.apk	✘
+ladybug-129.apk	✘
+ladybug-225.apk	✔	15.52.481
+LibreNews-23.apk	✘
+LibreNews-27.apk	✔	21.36.219
+lrkFM-44.apk	✘
+markor-1565.apk	✘
+markor-194.apk	✔	17.36.922
+materialistic-1067.apk	✘
+MBTACA-12.apk	✔	1.12.550
+Memento-169.apk	✘
+Mesh-495.apk	✘
+NewPipe-7825.apk	✘
+noad-1.apk	✘
+o365-attack-toolkit-26.apk	✔	0.59.206
+obd-22.apk	✔	14.42.052
+Open-Shell-Menu-2024.apk	✔	4.08.744
+pedometer-101.apk	✔	30.00.929
+plusTimer-19.apk	✔	5.25.546
+qksms-482.apk	✔	3.57.874
+qksms-585.apk	✘
 recdroid-13.apk	✔	3.54.086
-recdroid-14.apk	✘
-recdroid-15.apk	✔	21.36.219
 recdroid-17.apk	✔	1.05.237
-recdroid-21.apk	✔	1.12.550
 recdroid-23.apk	✘
-recdroid-24.apk	✔	14.42.052
-recdroid-25.apk	✘
-recdroid-26.apk	✔	4.38.064
-recdroid-27.apk	✘
-recdroid-28.apk	✘
-recdroid-29.apk	✔	0.59.206
 recdroid-30.apk	✘
-recdroid-31.apk	✔	1.33.735
-recdroid-33.apk	✘
-recdroid-34.apk	✘
-recdroid-35.apk	✘
-recdroid-38.apk	✘
-recdroid-39.apk	✘
-recdroid-42.apk	✘
-recdroid-45.apk	✘
 recdroid-49.apk	✘
-recdroid-53.apk	✔	20.39.738
-recdroid-55.apk	✘
-recdroid-56.apk	✔	4.08.744
-recdroid-57.apk	✘
+recdroid-5.apk	✘
 recdroid-58.apk	✘
-recdroid-60.apk	✔	5.17.543
-recdroid-61.apk	✔	12.09.116
-recdroid-62.apk	✘
 recdroid-64.apk	✘
-saner2022-2.apk	✔	15.52.481
-saner2022-8.apk	✘
-saner2022-11.apk	✘
-saner2022-18.apk	✘
-saner2022-23.apk	✘
-saner2022-129.apk	✘
-saner2022-271.apk	✘
-saner2022-1089.apk	✘
-saner2022-1096.apk	✘
-saner2022-1133.apk	✘
-saner2022-1160.apk	✔	3.57.874
+recdroid-7.apk	✔	2.38.631
+record-1.apk	✘
+revolution-irc-183.apk	✘
 saner2022-1207.apk	✘
-saner2022-1215.apk	✘
-saner2022-1227.apk	✘
-saner2022-1299.apk	✘
-saner2022-1430.apk	✔	9.56.191
-saner2022-1447.apk	✔	16.12.029
-saner2022-1568.apk	✘
-saner2022-1645.apk	✘
+saner2022-23.apk	✘
+sdbviewer-10.apk	✔	4.09.532
+sdbviewer-7.apk	✘
+Shuttle-456.apk	✔	7.19.420
+SimpleJoinMessage-3.apk	✘
+TagMo-12.apk	✔	1.33.735
+thunderbird-2612.apk	✘
+thunderbird-3255.apk	✘
+Trainer-7.apk	✘
+trickytripper-43.apk	✘
+WhereYouGo-368.apk	✔	16.14.772
 yakusu-1.apk	✘
 yakusu-35.apk	✘
 yakusu-98.apk	✘
+
+
+Alarmio-47.apk	✔	3.45.847
+FakeStandby-30.apk	✔	1.25.746
+recdroid-1.apk	✘
