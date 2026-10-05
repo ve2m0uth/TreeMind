@@ -1,6 +1,5 @@
 Aegis-500.apk	✘
 andOTP-569.apk	✘
-andror2-11.apk	✘
 andror2-11.apk	✔	0.12.188
 andror2-159.apk	✘
 andror2-162.apk	✘
@@ -22,6 +21,7 @@ AntennaPod-3245.apk	✔	3.20.181
 AnyMemo-422.apk	✔	1.35.780
 AnyMemo-440.apk	✔	5.12.744
 AsciiCam-17.apk	✔	0.26.453
+ATimeTracker-10.apk	✘
 banderlabs-23.apk	✔	3.06.056
 Birthdroid-13.apk	✔	2.51.016
 bounty-39073.apk	✘
@@ -42,7 +42,7 @@ GrowTracker-87.apk	✘
 GrowTracker-89.apk	✘
 IMSI-816.apk	✔	0.18.571
 iNaturalistAndroid-722.apk	✘
-ladybug-129.apk	✘
+andOTP-500.apk	✘
 ladybug-225.apk	✔	1.01.056
 LibreNews-23.apk	✔	2.34.910
 LibreNews-27.apk	✔	1.12.796
@@ -85,9 +85,9 @@ thunderbird-3255.apk	✔	2.35.280
 Trainer-7.apk	✘
 trickytripper-43.apk	✘
 WhereYouGo-368.apk	✔	1.56.106
-yakusu-1.apk	✘
-yakusu-35.apk	✘
-yakusu-98.apk	✘
+omni_location_tracker-132.apk	✘
+collect-360.apk	✘
+mapbox-2583.apk	✘
 
 
 Alarmio-47.apk	✘

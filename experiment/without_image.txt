@@ -42,7 +42,7 @@ GrowTracker-87.apk	✘
 GrowTracker-89.apk	✘
 IMSI-816.apk	✔	4.54.249
 iNaturalistAndroid-722.apk	✘
-ladybug-129.apk	✘
+andOTP-500.apk	✘
 ladybug-225.apk	✔	9.07.716
 LibreNews-23.apk	✘
 LibreNews-27.apk	✘
@@ -85,9 +85,9 @@ thunderbird-3255.apk	✔	4.37.241
 Trainer-7.apk	✘
 trickytripper-43.apk	✘
 WhereYouGo-368.apk	✔	3.18.307
-yakusu-1.apk	✘
-yakusu-35.apk	✘
-yakusu-98.apk	✔	15.02.383
+omni_location_tracker-132.apk	✘
+collect-360.apk	✘
+mapbox-2583.apk	✔	15.02.383
 
 
 Alarmio-47.apk	✔	2.05.581
