@@ -44,7 +44,8 @@ def select_node(node: TreeNode):
         score = child.mean_value + explore
         ucb_list.append(score)
     m = max(ucb_list)
-    branch_scale = math.sqrt(len(selectable_children))
+    # branch_scale = math.sqrt(len(selectable_children))
+    branch_scale = 1
     exp_vals = [math.exp((u - m) / branch_scale) for u in ucb_list]
     total = sum(exp_vals)
     if total == 0:

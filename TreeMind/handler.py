@@ -138,7 +138,7 @@ def _parse_batch_scores(response, expected_ids):
         except (KeyError, TypeError, ValueError):
             continue
         if candidate_id in expected_ids and candidate_id not in scores:
-            scores[candidate_id] = max(0.0, min(10.0, raw_score)) / 10.0
+            scores[candidate_id] = max(0.0, min(10.0, raw_score))
     return scores
 
 
@@ -160,7 +160,7 @@ def batch_simulation(mllm: BaseModel, simulation_items, conversation):
         return {}
 
     print("=========================")
-    print(f"Batch Simulation Agent: {response}")
+    print(f"Simulation Agent: {response}")
     print("=========================")
     expected_ids = {item["candidate_id"] for item in simulation_items}
     scores = _parse_batch_scores(response, expected_ids)
@@ -171,7 +171,6 @@ def batch_simulation(mllm: BaseModel, simulation_items, conversation):
 
 
 def simulation(device, mllm: BaseModel, node: TreeNode, ui_info, conversation):
-    """Evaluate one transition while preserving the pre-batch public interface."""
     _, current_ui, _ = get_widget_info(device)
     current_image_path = os.path.join(
         os.path.dirname(node.parent.image_path),
@@ -189,7 +188,7 @@ def simulation(device, mllm: BaseModel, node: TreeNode, ui_info, conversation):
         "current_image_path": current_image_path,
     }
     try:
-        return batch_simulation(mllm, [item], conversation).get(0, 0.5)
+        return batch_simulation(mllm, [item], conversation).get(0, 5)
     finally:
         if current_image_path and os.path.exists(current_image_path):
             try:
