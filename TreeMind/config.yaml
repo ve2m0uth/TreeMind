@@ -1,12 +1,12 @@
 MODEL: "OpenAI"
 # MODEL: "Qwen"
 OPENAI_API_BASE: "https://api.openai.com/v1"   # input your base address here
-OPENAI_API_KEY: "sk-"   # input your api here
+# Set OPENAI_API_KEY in your environment.
 OPENAI_API_MODEL: "gpt-4o"
 
 # Set MODEL to "Qwen" to use Alibaba Cloud Model Studio.
 QWEN_API_BASE: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-QWEN_API_KEY: "sk-"
+# Set QWEN_API_KEY or DASHSCOPE_API_KEY in your environment.
 QWEN_API_MODEL: "qwen3.8-flash"
 
 TEMPERATURE: 0.3

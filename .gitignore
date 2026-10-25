@@ -1,0 +1,20 @@
+# Python and local development environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Local credentials
+.env
+.env.*
+
+# Private experimental inputs, results, and runtime output
+/experiment/
+/results/
+/datasets/
+/TreeMind/apps/
+/TreeMind/tmp
+*.apk
+audit-results*.json
